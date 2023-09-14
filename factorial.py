@@ -1,39 +1,20 @@
-import math
-import time
-import logging
-import os
-
-logfile_dir = "C:\\Appl\\BG0VVK_Work\\factorial-calc\\log\\"
-logfile_name = "logfile.log"
-logfile_path = logfile_dir+logfile_name
-if not os.path.exists(logfile_path):
-    open(logfile_path, 'w').close()
-
-# create a logger
-logging.basicConfig(filename=(logfile_path),filemode="at+",level=logging.DEBUG)
-logger = logging.getLogger()
-
-
-def factorial_calc(n):
-    """Function that calculates the factorial value
+def factorial_calc_non_recursive(n):
+    """A non-recursive function calculator of factorial value
     param: n: int
-    return: result: int"""
-    
-    try:
-        start_time = time.time()
-        result = math.factorial(n)
-    except (TypeError, ValueError) as exc:
-        logger.error(exc)
-        raise
-    else:
-        message = f"The factorial of {n} is {result}"
-        print(message)
-        logger.info(message)
-        return result
-    finally:
-        end_time = time.time()
-        delta_time = abs(end_time - start_time)
-        logger.info(f"The computing time is: {delta_time}")
+    return: result: int
+    """
+    result_factorial = 1
+    for item in range(1, n + 1):
+        result_factorial = result_factorial * item
+    return result_factorial
+
+def factorial_calc_recursive(n):
+    """A recursive function calculator of factorial value
+    param: n: int
+    return: result: int
+    """
+    return 1 if n in (0, 1) else n * factorial_calc_recursive(n-1)
 
 
-#data = factorial_calc(5)
+print(factorial_calc_non_recursive(5))
+print(factorial_calc_recursive(5))
